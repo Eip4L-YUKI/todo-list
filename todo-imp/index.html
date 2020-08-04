@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Drawer menu</title>
+	<link rel="stylesheet" href="./css/zdo_drawer_menu.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="./js/zdo_drawer_menu.js"></script>
+</head>
+
+<body>
+	
+	
+	<div class="zdo_drawer_menu">
+		<!--
+		Zarigani Design Office Drawer Menu
+		Copyright 2018 Zarigani Design Office
+
+		Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+		The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+		-->
+		<div class="zdo_drawer_bg"></div>
+		<button type="button" class="zdo_drawer_button">
+			<span class="zdo_drawer_bar zdo_drawer_bar1"></span>
+			<span class="zdo_drawer_bar zdo_drawer_bar2"></span>
+			<span class="zdo_drawer_bar zdo_drawer_bar3"></span>
+			<span class="zdo_drawer_menu_text zdo_drawer_text">MENU</span>
+			<span class="zdo_drawer_close zdo_drawer_text">CLOSE</span>
+		</button>
+		<nav class="zdo_drawer_nav_wrapper">
+			<ul class="zdo_drawer_nav">
+
+				<li>
+					<a href="/index.html">
+						ToDoリストトップ
+					</a>
+				</li>
+
+				<li>
+					<a href="/todo-imp/index.html">
+						重要リスト
+					</a>
+				</li>
+
+				<li>
+					<a href="/todo-routine/index.html">
+						いつもやる事リスト
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						メニュー4
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						メニュー5
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						メニュー6
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+	<div id="app">
+		<h1 class="title1">重要ToDoリスト</h1>
+	
+	
+	
+		<label v-for="label in options" >
+		  <input type="radio"
+			v-model="current"
+			v-bind:value="label.value">{{ label.label }}
+		</label>
+		  
+		（{{ computedTodos.length }} 件を表示）
+	
+		<!-- リスト用テーブル -->
+		<table>
+		  <thead v-pre>
+			<tr>
+			  <th class="id">番号</th>
+			  <th class="comment">やる事</th>
+			  <th class="state">状態</th>
+			  <th class="button">-</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<!--ToDo の要素をループ -->
+			<tr
+			  v-for="item in computedTodos"
+			  v-bind:key="item.id"
+			  v-bind:class="{done:item.state}">
+			  <th>{{ item.id }}</th>
+			  <td>{{ item.comment }}</td>
+			  <td class="state">
+				<!--状態変更ボタン -->
+				<button v-on:click="doChangeState(item)">
+				  {{ labels[item.state] }}
+				</button>
+			  </td>
+			  <td class="button">
+				 <!--削除ボタン-->
+				<button v-on:click="doRemove(item)">
+				  削除
+				</button>
+			  </td>
+			</tr>
+		  </tbody>
+		</table>
+		
+		<h2 class="title1">新しい作業の追加</h2>
+		<form class="add-form" v-on:submit.prevent="doAdd">
+		  <!-- コメント入力フォーム -->
+		  コメント <input type="text" ref="comment">
+		  <!-- 追加ボタンのモック -->
+		  <button type="submit">追加</button>
+		</form>
+	
+	  </div>
+	
+	  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	  <script src="./js/main.js"></script>
+	</body>
+	</html>
+	
+</body>
+
+</html>
